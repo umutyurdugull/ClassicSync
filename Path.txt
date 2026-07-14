@@ -1,0 +1,4 @@
+Playlist veya şarkının linki kullanıcıdan alınacak.
+Dökümanları daha okumadım, indirme kısmında ne lazımsa (Id ya da isim) ona göre bu veri alınacak.
+YouTube veya başka bir indirme yapabileceğim kaynağa istek atacağım. 
+Kullanıcıya videoyu yükleyen kanal, video adı verilecek eğer kullanıcı kabul ederse indirecek. 
