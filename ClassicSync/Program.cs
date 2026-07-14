@@ -1,6 +1,7 @@
 ﻿using SpotifyAPI.Web;
 using System;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using YoutubeExplode;
@@ -9,21 +10,28 @@ using YoutubeExplode.Videos.Streams;
 
 class Program
 {
+    static string clientId = "e438d8fb604d4a21a0c9e0230216412c";
+    static string clientSecret = "1cd518fa41cc400d8abc433f82c3c900";
+    static ClientCredentialsRequest request = new ClientCredentialsRequest(clientId, clientSecret);
+    static SpotifyClientConfig config = SpotifyClientConfig.CreateDefault();
 
-
+    static OAuthClient oauth;
+    static ClientCredentialsTokenResponse tokenResponse;
+    static SpotifyClient spotify;
 
     static async Task Main()
     {
-
-        // Spotify
-        string clientId = "d7609632e93247de8795b7d53886abcf";
-        string clientSecret = "66286958d9f74faeb18d8d8885393299";
-        var config = SpotifyClientConfig.CreateDefault();
-        var request = new ClientCredentialsRequest(clientId, clientSecret);
-        var oauth = new OAuthClient(config);
-        var tokenResponse = await oauth.RequestToken(request);
-        var spotify = new SpotifyClient(config.WithToken(tokenResponse.AccessToken));
+      
+        oauth = new OAuthClient(config);
+        tokenResponse = await oauth.RequestToken(request);
+        spotify = new SpotifyClient(config.WithToken(tokenResponse.AccessToken));
         string playlistLink = "https://open.spotify.com/playlist/2ivJYhcthjbXzIVXg7RUmy?si=8fde7fcf4324424d";
+        await DownloadSongsAsPlaylist(playlistLink);
+    }
+
+    static async Task DownloadSongsAsPlaylist(string playlistLink)
+    {
+
         string playlistId = Regex.Match(playlistLink, @"(?:spotify(?::|\.com\/))(?:track|album|artist|playlist|show|episode)(?::|\/)([^?#\s]+)").Groups[1].Value;
         var playlist = await spotify.Playlists.Get(playlistId);
         int? totalTracks = playlist.Tracks.Total; // 1 
@@ -49,11 +57,7 @@ class Program
                 }
             }
         }
-
-
     }
-
-
 
     static async Task FindAndDownloadVideoAsync(string artistName, string trackName, int spotifyDurationMs)
     {
@@ -69,8 +73,9 @@ class Program
             {
                 double diffSeconds = Math.Abs((video.Duration.Value - spotifyDuration).TotalSeconds);
 
-                if (diffSeconds <= 5)
+                if (diffSeconds <= 10)
                 {
+                    // ya mesela Manifest - Toz Pembe'de 40 saniye falan mı ne delay var, gerçi bize music değil de direkt ses kısmı lazım.
                     matchedVideo = video;
                     break;
                 }
