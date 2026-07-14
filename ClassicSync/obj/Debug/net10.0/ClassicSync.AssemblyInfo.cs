@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ClassicSync")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e66b4adf598e5a0cceaafd01e09ccfc06af6201e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+176416c5db44c1e1c7ebfe4b0ac4d32988315f08")]
 [assembly: System.Reflection.AssemblyProductAttribute("ClassicSync")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ClassicSync")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
