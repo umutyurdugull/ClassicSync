@@ -2,3 +2,20 @@ Playlist veya şarkının linki kullanıcıdan alınacak.
 Dökümanları daha okumadım, indirme kısmında ne lazımsa (Id ya da isim) ona göre bu veri alınacak.
 YouTube veya başka bir indirme yapabileceğim kaynağa istek atacağım. 
 Kullanıcıya videoyu yükleyen kanal, video adı verilecek eğer kullanıcı kabul ederse indirecek. 
+Playlistlerde ise +-5 saniye tolerans koyacak, eğer daha uzunsa kullanıcya gidip soracak (Klip olabilir)
+
+
+
+
+
+
+
+
+Denemeleri klibi olan ve olmayan 2 şarkıyı kullanarak yapacağım :
+    Klipli şarkı : DUCKBOY - AWAY FROM ME, SATAN!   
+        Spotify Linki : https://open.spotify.com/track/7Csto41WAiTTzmAEjBu7ru?si=3671cb308395418b
+        Youtube Linki : https://www.youtube.com/watch?v=rTKasgY0hWc
+    Klipsiz şarkı : $uicideboy$ - One Last Look at the Damage
+        Spotify Linki : https://open.spotify.com/track/5pVZABS2GkOJf7adB3b2al?si=7827823804724de6
+        YouTube Linki : https://www.youtube.com/watch?v=pHv1y-BNs4k
+    Playlist Linki    : https://open.spotify.com/playlist/3FaFbueqz8JuP975z0kciu?si=dc73ecfe806b401b
