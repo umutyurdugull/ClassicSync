@@ -10,8 +10,8 @@ using YoutubeExplode.Videos.Streams;
 
 class Program
 {
-    static string clientId = "e438d8fb604d4a21a0c9e0230216412c";
-    static string clientSecret = "1cd518fa41cc400d8abc433f82c3c900";
+    static string clientId = "";
+    static string clientSecret = "";
     static ClientCredentialsRequest request = new ClientCredentialsRequest(clientId, clientSecret);
     static SpotifyClientConfig config = SpotifyClientConfig.CreateDefault();
 
@@ -36,11 +36,8 @@ class Program
         var playlist = await spotify.Playlists.Get(playlistId);
         int? totalTracks = playlist.Tracks.Total; // 1 
 
-
-
-
-
-
+        // Only gets 100 songs, we need to use pagination
+        // also downloads files into /bin folder, and we're not letting it pass into GitHub with .gitignore 
         if (playlist.Tracks?.Items != null && playlist.Tracks.Items.Count > 0)
         {
             for (int i = 0; i < playlist.Tracks.Items.Count; i++)
@@ -84,24 +81,35 @@ class Program
 
         if (matchedVideo != null)
         {
-
-
-            var streamManifest = await youtube.Videos.Streams.GetManifestAsync(matchedVideo.Id);
-            var streamInfo = streamManifest.GetAudioOnlyStreams().GetWithHighestBitrate();
+        var streamManifest = await youtube.Videos.Streams.GetManifestAsync(matchedVideo.Id);
+        var streamInfo = streamManifest.GetAudioOnlyStreams().GetWithHighestBitrate();
 
             if (streamInfo != null)
             {
-                string safeFileName = string.Join("_", trackName.Split(System.IO.Path.GetInvalidFileNameChars()));
-                string filePath = $"{safeFileName}.{streamInfo.Container}";
+            
+                string musicFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
+                string downloadFolder = Path.Combine(musicFolder, "ClassicSync");
 
-                Console.WriteLine($"iniyor: {filePath}...");
+                    if (!Directory.Exists(downloadFolder))
+                    {
+                        Directory.CreateDirectory(downloadFolder);
+                    }
+
+            
+                string rawFileName = $"{artistName} - {trackName}";
+                string safeFileName = string.Join("_", rawFileName.Split(Path.GetInvalidFileNameChars()));
+                
+                
+                string filePath = Path.Combine(downloadFolder, $"{safeFileName}.{streamInfo.Container}");
+
+                Console.WriteLine($"İniyor: {filePath}");
                 await youtube.Videos.Streams.DownloadAsync(streamInfo, filePath);
-                Console.WriteLine("indirdi!");
+                Console.WriteLine("İndirdi");
             }
-        }
-        else
-        {
-            Console.WriteLine("video yok.");
-        }
+            }
+            else
+            {
+                Console.WriteLine("video yok.");
+            }
     }
 }
